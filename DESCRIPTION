@@ -1,0 +1,26 @@
+Package: geoarea
+Title: Fast, Dependency-Free Geodesic Area Calculations
+Version: 0.0.1
+Authors@R: c(
+    person("Mark", "Padgham", , "mark.padgham@email.com", role = c("aut", "cre")),
+    person("Charles F.F", "Karney", role = "cph",
+           comment = "Original author of included code for geodesic distances")
+  )
+Description: Dependency-free, ultra fast calculation of geodesic areas, using
+    the the reference nanometre-accuracy libraries of Karney (2013)
+    <doi:10.1007/s00190-012-0578-z>, as used by the 'sf' package. The main
+    function accepts a single input of two columns containing the longitude and
+    latitude coordinates, assumed to be a polygon and represented in WSG84
+    projection, and returns the area in square metres, and perimeter in metres.
+License: MIT + file LICENSE
+URL: https://github.com/hypertidy/geoarea
+BugReports: https://github.com/hypertidy/geoarea/issues
+Suggests:
+    rmarkdown,
+    testthat
+Encoding: UTF-8
+LazyData: true
+NeedsCompilation: yes
+RoxygenNote: 7.2.1
+Config/testthat/edition: 3
+Config/testthat/parallel: true

@@ -1,0 +1,72 @@
+{
+  "@context": "https://doi.org/10.5063/schema/codemeta-2.0",
+  "@type": "SoftwareSourceCode",
+  "identifier": "geoarea",
+  "description": "Dependency-free, ultra fast calculation of geodesic areas, using the the reference nanometre-accuracy libraries of Karney (2013) <doi:10.1007/s00190-012-0578-z>, as used by the 'sf' package. The main function accepts a single input of two columns containing the longitude and latitude coordinates, assumed to be a polygon and represented in WSG84 projection, and returns the area in square metres, and perimeter in metres.",
+  "name": "geoarea: Fast, Dependency-Free Geodesic Area Calculations",
+  "codeRepository": "https://github.com/hypertidy/geoarea",
+  "issueTracker": "https://github.com/hypertidy/geoarea/issues",
+  "license": "https://spdx.org/licenses/MIT",
+  "version": "0.0.1",
+  "programmingLanguage": {
+    "@type": "ComputerLanguage",
+    "name": "R",
+    "url": "https://r-project.org"
+  },
+  "runtimePlatform": "R version 4.2.1 (2022-06-23)",
+  "author": [
+    {
+      "@type": "Person",
+      "givenName": "Mark",
+      "familyName": "Padgham",
+      "email": "mark.padgham@email.com"
+    }
+  ],
+  "copyrightHolder": [
+    {
+      "@type": "Person",
+      "givenName": "Charles F.F",
+      "familyName": "Karney"
+    }
+  ],
+  "maintainer": [
+    {
+      "@type": "Person",
+      "givenName": "Mark",
+      "familyName": "Padgham",
+      "email": "mark.padgham@email.com"
+    }
+  ],
+  "softwareSuggestions": [
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "rmarkdown",
+      "name": "rmarkdown",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=rmarkdown"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "testthat",
+      "name": "testthat",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=testthat"
+    }
+  ],
+  "softwareRequirements": {
+    "SystemRequirements": null
+  },
+  "fileSize": "239.117KB",
+  "contIntegration": ["https://github.com/hypertidy/geoarea/actions?query=workflow%3AR-CMD-check", "https://github.com/hypertidy/geoarea/actions?query=workflow%3Apkgcheck", "https://codecov.io/gh/hypertidy/geoarea"],
+  "developmentStatus": "http://www.repostatus.org/#active"
+}

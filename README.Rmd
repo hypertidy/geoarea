@@ -1,0 +1,60 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, echo = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "README-"
+)
+```
+
+[![R build
+status](https://github.com/hypertidy/geoarea/workflows/R-CMD-check/badge.svg)](https://github.com/hypertidy/geoarea/actions?query=workflow%3AR-CMD-check)
+[![pkgcheck](https://github.com/hypertidy/geoarea/workflows/pkgcheck/badge.svg)](https://github.com/hypertidy/geoarea/actions?query=workflow%3Apkgcheck)
+[![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active)
+[![codecov](https://codecov.io/gh/hypertidy/geoarea/branch/master/graph/badge.svg)](https://codecov.io/gh/hypertidy/geoarea)
+[![CRAN_Status_Badge](http://www.r-pkg.org/badges/version/geoarea)](http://cran.r-project.org/web/packages/geoarea) 
+![downloads](http://cranlogs.r-pkg.org/badges/grand-total/geoarea)
+
+# geoarea
+
+An ultra-lightweight, zero-dependency package for very fast calculation of
+geodesic polygon areas. Calculation is based on the ["geographiclib" code of
+Charles Karney](https://doi.org/10.1007/s00190-012-0578-z), available at
+[https://github.com/geographiclib/geographiclib-c]
+https://github.com/geographiclib/geographiclib-c](https://github.com/geographiclib/geographiclib-c).
+These calculations are available in many other libraries and R packages, and
+are notably included in [the 'PROJ' library](https://proj.org/), and used by many packages which
+bundles depend on that library, including \pkg{libproj} and \pkg{sf}. All such
+packages, as well as the \pkg{geosphere} package which includes the C++ version
+of the C code bundled here, are large and generally packages, requiring
+extensive installation of a wide range of dependent libraries. The `geoarea`
+package in contrast does not depend on any other packages, and is
+much "lighter weight" than any of these alternatives. 
+
+The package contains one single function, `geoarea()`, which, like in the
+sibling package, [`geodist`](https://github.com/hypertidy/geodist), aims to
+provide the fastest way of calculating areas of polygons expressed in longitude
+and latitude coordinates. This speed is primarily through this package
+foregoing any pre-processing stages such as coordinate reference system
+checking or transformations. All input values are passed directly to the core C
+routines, and return a single vector of two values quantifying the area and
+perimeter of the input polygon.
+
+The following example is taken from [the "geographiclib" source
+code](https://github.com/geographiclib/geographiclib-c/blob/d908229507db95664aa4c735c6f5c79f94b0ecfc/src/geodesic.h#L789-L795),
+with the coordinates approximately defining the perimeter of Antarctica.
+
+```{r Antarctica}
+library (geoarea)
+lats <- c (-72.9, -71.9, -74.9, -74.3, -77.5, -77.4, -71.7, -65.9, -65.7,
+           -66.6, -66.9, -69.8, -70.0, -71.0, -77.3, -77.9, -74.7)
+lons <- c (-74, -102, -102, -131, -163, 163, 172, 140, 113, 88, 59, 25, -4,
+           -14, -33, -46, -61)
+xy <- cbind (lons, lats)
+geoarea (xy)
+```
