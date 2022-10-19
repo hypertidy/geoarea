@@ -12,32 +12,28 @@ SEXP R_one_geoarea (SEXP lons_, SEXP lats_)
     double *rlons, *rlats, *rout;
 
     SEXP out = PROTECT (allocVector (REALSXP, 2));
-    lons_ = PROTECT (Rf_coerceVector (lons_, REALSXP));
-    lats_ = PROTECT (Rf_coerceVector (lats_, REALSXP));
 
     rlons = REAL (lons_);
     rlats = REAL (lats_);
     rout = REAL (out);
 
-    // Need to copy to vectors to pass to Karney's code
-    double lons_cp [n], lats_cp [n];
-    for (int i = 0; i < n; i++)
-    {
-        lons_cp [i] = rlons [i];
-        lats_cp [i] = rlats [i];
-    }
-
     struct geod_geodesic g;
     double A = 0, P = 0;
 
     geod_init(&g, earth, flattening);
-    geod_polygonarea(&g, lats_cp, rlons, (sizeof lats_cp) / (sizeof lats_cp[0]), &A, &P);
+    // Need to copy to vectors to pass to Karney's code, so call code directly
+    // as in `geod_polygonarea`:
+    struct geod_polygon p;
+    geod_polygon_init (&p, FALSE);
+    for (int i = 0; i < n; ++i)
+        geod_polygon_addpoint (&g, &p, rlats [i], rlons [i]);
+    geod_polygon_compute (&g, &p, FALSE, TRUE, &A, &P);
     //Rprintf("%.0f %.2f\n", A, P);
 
     rout [0] = A;
     rout [1] = P;
 
-    UNPROTECT (3);
+    UNPROTECT (1);
 
     return out;
 }
