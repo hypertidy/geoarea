@@ -50,3 +50,47 @@ geoarea (xy)
 #>           area      perimeter 
 #> 13376856682207       14710425
 ```
+
+## Even quicker area calculations
+
+The `geoarea()` function has one additional parameter, “spherical”,
+which defaults to `FALSE`. Setting to `TRUE` enables very
+computationally efficient calculations of polygon areas presuming
+spherical, as opposed to ellipsoidal, geometry. The resultant areas will
+generally be less accurate than the default method, but are generally
+much faster to compute, as demonstrated in the following benchmark
+tests.
+
+## Benchmark
+
+The following benchmarks the calculations of this package with the
+equivalent C++ routines included with [the `geosphere`
+package](https://cran.r-project.org/package=geosphere), and [the `sf`
+package](https://cran.r-project.org/package=sf).
+
+``` r
+library (bench)
+library (sf)
+library (geosphere)
+lats <- c (-72.9, -71.9, -74.9, -74.3, -77.5, -77.4, -71.7, -65.9, -65.7,
+           -66.6, -66.9, -69.8, -70.0, -71.0, -77.3, -77.9, -74.7)
+lons <- c (-74, -102, -102, -131, -163, 163, 172, 140, 113, 88, 59, 25, -4,
+           -14, -33, -46, -61)
+xy <- cbind (lons, lats)
+xys <- sf::st_polygon (list (rbind (xy, xy [1, ]))) |>
+    sf::st_sfc (crs = 4326)
+
+bench::mark (
+    geoarea (xy),
+    geoarea (xy, spherical = TRUE),
+    geosphere::areaPolygon (xy),
+    sf::st_area (xys),
+    check = FALSE)
+#> # A tibble: 4 × 6
+#>   expression                         min   median `itr/sec` mem_alloc `gc/sec`
+#>   <bch:expr>                    <bch:tm> <bch:tm>     <dbl> <bch:byt>    <dbl>
+#> 1 geoarea(xy)                    21.48µs  22.98µs    42857.      368B     0   
+#> 2 geoarea(xy, spherical = TRUE)   5.62µs   6.46µs   148198.      368B    14.8 
+#> 3 geosphere::areaPolygon(xy)     23.99µs  25.36µs    39153.      368B     3.92
+#> 4 sf::st_area(xys)                3.43ms   3.51ms      281.    2.95MB     6.38
+```
