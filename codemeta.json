@@ -7,7 +7,7 @@
   "codeRepository": "https://github.com/hypertidy/geoarea",
   "issueTracker": "https://github.com/hypertidy/geoarea/issues",
   "license": "https://spdx.org/licenses/MIT",
-  "version": "0.0.1.004",
+  "version": "0.0.1.005",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",

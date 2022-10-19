@@ -1,6 +1,6 @@
 Package: geoarea
 Title: Fast, Dependency-Free Geodesic Area Calculations
-Version: 0.0.1.004
+Version: 0.0.1.005
 Authors@R: c(
     person("Mark", "Padgham", , "mark.padgham@email.com", role = c("aut", "cre")),
     person("Charles F.F", "Karney", role = "cph",

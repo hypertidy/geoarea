@@ -5,15 +5,20 @@
 \alias{geoarea}
 \title{geoarea.}
 \usage{
-geoarea(x)
+geoarea(x, spherical = FALSE)
 }
 \arguments{
 \item{x}{Rectangular object (matrix, \code{data.frame}, \pkg{tibble},
 whatever) containing longitude and latitude coordinates of a polygon.}
+
+\item{spherical}{If `TRUE`, calculate approximate area presuming spherical
+geometry, using method of Bevis and Cambareri (1987)
+<doi:10.1007/BF00897843>.}
 }
 \value{
 A vector of two numbers quantifying the area and perimter of the
-polygon 'x'.
+polygon 'x'. The `cheap = TRUE` method does not calculate perimeters, and
+resturns `NA` for the second value.
 }
 \description{
 Calculation is based on the "geographiclib" code of Charles Karney

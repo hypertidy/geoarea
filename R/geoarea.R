@@ -15,8 +15,12 @@
 #'
 #' @param x Rectangular object (matrix, \code{data.frame}, \pkg{tibble},
 #' whatever) containing longitude and latitude coordinates of a polygon.
+#' @param spherical If `TRUE`, calculate approximate area presuming spherical
+#' geometry, using method of Bevis and Cambareri (1987)
+#' <doi:10.1007/BF00897843>.
 #' @return A vector of two numbers quantifying the area and perimter of the
-#' polygon 'x'.
+#' polygon 'x'. The `cheap = TRUE` method does not calculate perimeters, and
+#' resturns `NA` for the second value.
 #'
 #' @examples
 #' # Perimeter of Antarctica as documented in original 'geographiclib' code
@@ -27,9 +31,13 @@
 #' xy <- cbind (lons, lats)
 #' geoarea (xy)
 #' @export
-geoarea <- function (x) {
+geoarea <- function (x, spherical = FALSE) {
 
-    res <- .Call ("R_one_geoarea", x [, 1], x [, 2])
+    if (!spherical) {
+        res <- .Call ("R_one_geoarea", x [, 1], x [, 2])
+    } else {
+        res <- c (.Call ("R_one_geoarea_cheap", x [, 1], x [, 2]), NA)
+    }
     names (res) <- c ("area", "perimeter")
 
     return (res)
