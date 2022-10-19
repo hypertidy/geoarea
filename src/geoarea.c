@@ -36,7 +36,7 @@ SEXP R_one_geoarea (SEXP lons_, SEXP lats_)
     geod_polygon_compute (&g, &p, FALSE, TRUE, &A, &P);
     //Rprintf("%.0f %.2f\n", A, P);
 
-    rout [0] = A;
+    rout [0] = fabs (A); // geodesic can return -ve areas
     rout [1] = P;
 
     UNPROTECT (1);
@@ -66,7 +66,12 @@ SEXP R_one_geoarea_cheap (SEXP lons_, SEXP lats_)
     double hav = 0;
     double sum = 0;
 
-    const double earth_sq = earth * earth;
+    // convert lons & lats to radians:
+    for (int i = 0 ; i < n; i++ )
+    {
+        rlons [i] = rlons [i] * M_PI / 180;
+        rlats [i] = rlats [i] * M_PI / 180;
+    }
 
     for (int j = 0 ; j < n; j++ )
     {
@@ -101,7 +106,7 @@ SEXP R_one_geoarea_cheap (SEXP lons_, SEXP lats_)
             double t = tan ( s / 2 ) * tan ( ( s - a ) / 2 ) *  
                 tan ( ( s - b ) / 2 ) * tan ( ( s - c ) / 2 );
 
-            double excess = fabs (4 * tan ( sqrt (fabs (t))));
+            double excess = fabs (4 * atan (sqrt (fabs (t))));
 
             if (lam2 < lam1)
             {
@@ -112,7 +117,7 @@ SEXP R_one_geoarea_cheap (SEXP lons_, SEXP lats_)
         }
     }
 
-    rout [0] = fabs (sum) * earth_sq;
+    rout [0] = fabs (sum) * earth * earth;
 
     UNPROTECT (1);
 
