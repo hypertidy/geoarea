@@ -29,11 +29,7 @@
 #' @export
 geoarea <- function (x) {
 
-    xy <- convert_to_matrix (x)
-    x <- xy [, 1]
-    y <- xy [, 2]
-
-    res <- .Call ("R_one_geoarea", as.vector (x), as.vector (y))
+    res <- .Call ("R_one_geoarea", x [, 1], x [, 2])
     names (res) <- c ("area", "perimeter")
 
     return (res)
