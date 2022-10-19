@@ -2,7 +2,6 @@
 
 [![R build
 status](https://github.com/hypertidy/geoarea/workflows/R-CMD-check/badge.svg)](https://github.com/hypertidy/geoarea/actions?query=workflow%3AR-CMD-check)
-[![pkgcheck](https://github.com/hypertidy/geoarea/workflows/pkgcheck/badge.svg)](https://github.com/hypertidy/geoarea/actions?query=workflow%3Apkgcheck)
 [![Project Status: Active – The project has reached a stable, usable
 state and is being actively
 developed.](http://www.repostatus.org/badges/latest/active.svg)](http://www.repostatus.org/#active)
