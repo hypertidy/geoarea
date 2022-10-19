@@ -9,6 +9,6 @@
 #include "WSG84-defs.h"
 #include "geodesic.h"
 
-double one_geoarea (double lons, double lats);
+SEXP R_one_geoarea (SEXP lons_, SEXP lats_);
 
 #endif /* GEOAREA_H */
